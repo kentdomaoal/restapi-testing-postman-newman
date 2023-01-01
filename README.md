@@ -2,19 +2,17 @@
 Sample Rest Api testing using Postman.
 - Uses [**Postman-Newman Framework**](https://github.com/nareshnavinash/Postman-Newman-Framework) for running Postman Collection(s).
 - HTML Report is generated via **Allure-report**.
+- Github actions were setup for its CI/CD Pipeline.
 <!-- 
 This can be executed in local machine or via Jenkins Pipeline.
-
-Github actions were also setup for its CI/CD Pipeline.
 -->
-
 
 ## How to run in local machine
 
 - ## 💻 Pre-requisites
-  - Git Bash
-  - Node JS
-  - Java 8 or higher *(for Allure Reporter)*
+  - [Git](https://git-scm.com/downloads)
+  - [Node JS](https://nodejs.org/en/download)
+  - [Java 8](https://www.oracle.com/ph/java/technologies/downloads) or higher *(for Allure Reporter)*
 
 ### 1. Clone the project
 ```

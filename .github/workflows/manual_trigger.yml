@@ -60,14 +60,15 @@ jobs:
             publish_branch: allure
             publish_dir: allure-history
 
-        # - name: Send Report URL
-        #   uses: dawidd6/action-send-mail@v3
-        #   with:
-        #     server_address: smtp.gmail.com
-        #     server_port: 465
-        #     username: ${{secrets.MAIL_USERNAME}}
-        #     password: ${{secrets.MAIL_PASSWORD}}
-        #     subject: Allure Report - ${{ github.repository }} Build(${{ github.run_number }})
-        #     to: ${{ inputs.RECIPIENT_EMAIL }}
-        #     from: Github WorkFlow
-        #     body: Test Completed. Please see report <a href="https://kentdomaoal.github.io/restapi-testing-postman-newman">here</a>
+        - name: Send Report URL
+          uses: dawidd6/action-send-mail@v3
+          with:
+            server_address: smtp.gmail.com
+            server_port: 465
+            username: ${{secrets.MAIL_USERNAME}}
+            password: ${{secrets.MAIL_PASSWORD}}
+            subject: Allure Report - ${{ github.repository }} Build(${{ github.run_number }})
+            to: ${{ inputs.RECIPIENT_EMAIL }}
+            from: Github WorkFlow
+            body: Test Completed. Please see report <a href="https://kentdomaoal.github.io/restapi-testing-postman-newman">here</a>
+            
