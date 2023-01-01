@@ -71,4 +71,5 @@ jobs:
             to: ${{ inputs.RECIPIENT_EMAIL }}
             from: Github WorkFlow
             body: Test Completed. Please see report <a href="https://kentdomaoal.github.io/restapi-testing-postman-newman">here</a>
+            convert_markdown: true
             
