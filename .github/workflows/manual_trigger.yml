@@ -29,7 +29,7 @@ jobs:
         # Install the newman command line utility, also install the html and allure reporter
         - name: Install newman
           run: |
-            npm install -g newman
+            npm install newman
             npm install -g newman-reporter-allure
             npm install -g newman-reporter-html
         
