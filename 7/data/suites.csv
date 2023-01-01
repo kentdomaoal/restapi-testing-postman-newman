@@ -1,4 +1,0 @@
-"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
-"passed","Sun Jan 01 09:34:54 GMT 2023","Sun Jan 01 09:34:54 GMT 2023","40","User","","","","","When I search for a user",""
-"passed","Sun Jan 01 09:34:54 GMT 2023","Sun Jan 01 09:34:54 GMT 2023","39","User","","","","","When I try to Login",""
-"passed","Sun Jan 01 09:34:54 GMT 2023","Sun Jan 01 09:34:54 GMT 2023","167","User","","","","","When I create a User",""
