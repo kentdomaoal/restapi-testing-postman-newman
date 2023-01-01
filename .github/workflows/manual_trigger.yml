@@ -8,30 +8,30 @@ on:
         description: 'Enter email of Recipient'
         default: 'kentdomaoal@gmail.com'
         required: true
-      
       FEEDFILE:
         description: 'Enter path of the feed file'
         default: '/feed/run.json'
         required: true
+
 jobs:
-  build:
+  test-api:
       runs-on: ubuntu-latest
       steps:
         - name: Checkout
           uses: actions/checkout@v3
       
-      # Install Node on the runner
-      - name: Install Node
-        uses: actions/setup-node@v1
-        with:
-          node-version: "18.x"
+        # Install Node on the runner
+        - name: Install Node
+          uses: actions/setup-node@v1
+          with:
+            node-version: "18.x"
 
-      # Install the newman command line utility, also install the html and allure reporter
-      - name: Install newman
-        run: |
-          npm install -g newman
-          npm install -g newman-reporter-allure
-          npm install -g newman-reporter-html
+        # Install the newman command line utility, also install the html and allure reporter
+        - name: Install newman
+          run: |
+            npm install -g newman
+            npm install -g newman-reporter-allure
+            npm install -g newman-reporter-html
         
         - name: Run Postman Tests
           run: |
