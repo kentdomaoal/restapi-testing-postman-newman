@@ -13,9 +13,8 @@ on:
         description: 'Enter path of the feed file'
         default: '/feed/run.json'
         required: true
-
 jobs:
-  test-api:
+  build:
       runs-on: ubuntu-latest
       steps:
         - name: Checkout
