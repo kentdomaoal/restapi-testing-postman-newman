@@ -1,9 +1,0 @@
-{
-    "runs":[
-        {
-            "collection": "../collection/PetstoreApi.json",
-            "environment": "../environment/QA.env.json"
-        }
-        
-    ]
-}
