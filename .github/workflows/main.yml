@@ -1,5 +1,4 @@
-# Run tests manually in the Actions tab of the project
-name: Postman Tests - Manual Trigger
+name: Postman Tests
 on:
   push:
     branches: [ master ]
