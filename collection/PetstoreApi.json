@@ -38,9 +38,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{storeApiBaseUrl}}/user",
+							"raw": "{{petStoreApiBaseUrl}}/user",
 							"host": [
-								"{{storeApiBaseUrl}}"
+								"{{petStoreApiBaseUrl}}"
 							],
 							"path": [
 								"user"
@@ -85,9 +85,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{storeApiBaseUrl}}/user/{{username}}",
+							"raw": "{{petStoreApiBaseUrl}}/user/{{username}}",
 							"host": [
-								"{{storeApiBaseUrl}}"
+								"{{petStoreApiBaseUrl}}"
 							],
 							"path": [
 								"user",
@@ -126,9 +126,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{storeApiBaseUrl}}/user/login?username={{username}}&password={{password}}",
+							"raw": "{{petStoreApiBaseUrl}}/user/login?username={{username}}&password={{password}}",
 							"host": [
-								"{{storeApiBaseUrl}}"
+								"{{petStoreApiBaseUrl}}"
 							],
 							"path": [
 								"user",
@@ -143,6 +143,265 @@
 									"key": "password",
 									"value": "{{password}}"
 								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Pet",
+			"item": [
+				{
+					"name": "Given a pet dog is available in the store",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"pm.collectionVariables.set(\"petname\",jsonData.name)\r",
+									"pm.collectionVariables.set(\"petID\",jsonData.id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 1,\r\n  \"category\": {\r\n    \"id\": 1,\r\n    \"name\": \"dog\"\r\n  },\r\n  \"name\": \"Blackie\",\r\n  \"photoUrls\": [\r\n    \"url\"\r\n  ],\r\n  \"tags\": [\r\n    {\r\n      \"id\": 1,\r\n      \"name\": \"dog\"\r\n    }\r\n  ],\r\n  \"status\": \"available\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{petStoreApiBaseUrl}}/pet",
+							"host": [
+								"{{petStoreApiBaseUrl}}"
+							],
+							"path": [
+								"pet"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "When I search for available dogs",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// pm.test(pm.collectionVariables.replaceIn(\"Then {{petname}} should be available\"), function () {\r",
+									"//     pm.expect(pm.response.text()).to.include(pm.collectionVariables.get(\"petname\"));\r",
+									"// });\r",
+									"\r",
+									"pm.test(pm.collectionVariables.replaceIn(\"Then {{petname}} with id: {{petID}} should be available\"), function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    // console.info(jsonData.length);\r",
+									"    jsonData.forEach(function(data) {\r",
+									"        // console.log(data.name);\r",
+									"        if(data.hasOwnProperty(\"id\")){\r",
+									"            if(data.id == pm.collectionVariables.get(\"petID\")){\r",
+									"                pm.expect(data.name).to.eql(\"Blackie\")\r",
+									"            }  \r",
+									"        }\r",
+									"    })\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{petStoreApiBaseUrl}}/pet/findByStatus?status=available",
+							"host": [
+								"{{petStoreApiBaseUrl}}"
+							],
+							"path": [
+								"pet",
+								"findByStatus"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "available"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "When I update Blackie's status to sold",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Then update process should be successful\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"petID\",1);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "status",
+									"value": "sold",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{petStoreApiBaseUrl}}/pet/{{petID}}",
+							"host": [
+								"{{petStoreApiBaseUrl}}"
+							],
+							"path": [
+								"pet",
+								"{{petID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "When I search for Blackie",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(pm.collectionVariables.replaceIn(\"Then {{petname}}'s status is now sold\"), function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.status).to.eql(\"sold\")\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{petStoreApiBaseUrl}}/pet/{{petID}}",
+							"host": [
+								"{{petStoreApiBaseUrl}}"
+							],
+							"path": [
+								"pet",
+								"{{petID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "When I delete Blackie's record",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Then delete process should be successful\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{petStoreApiBaseUrl}}/pet/{{petID}}",
+							"host": [
+								"{{petStoreApiBaseUrl}}"
+							],
+							"path": [
+								"pet",
+								"{{petID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "When I search again for Blackie",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(pm.collectionVariables.replaceIn(\"Then {{petname}}'s record should no longer be found\"), function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.message).to.eql(\"Pet not found\")\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{petStoreApiBaseUrl}}/pet/{{petID}}",
+							"host": [
+								"{{petStoreApiBaseUrl}}"
+							],
+							"path": [
+								"pet",
+								"{{petID}}"
 							]
 						}
 					},
@@ -180,6 +439,16 @@
 		{
 			"key": "password",
 			"value": "password",
+			"type": "string"
+		},
+		{
+			"key": "petname",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "petID",
+			"value": "",
 			"type": "string"
 		}
 	]

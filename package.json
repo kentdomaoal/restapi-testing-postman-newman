@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "clear-report": "node lib/clear_reports.js",
+    "pretest": "npm run clear-report",
     "test": "node index.js",
     "allure-serve": "allure serve reports/allure"
   },
